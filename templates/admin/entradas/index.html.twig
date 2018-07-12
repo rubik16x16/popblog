@@ -1,0 +1,12 @@
+{% extends "admin/layout.html.twig" %}
+
+{% block content %}
+
+{% for entrada in entradas %}
+
+  {{ entrada.titulo }}
+  {{ entrada.descripcion }}
+
+{% endfor %}
+
+{% endblock %}
