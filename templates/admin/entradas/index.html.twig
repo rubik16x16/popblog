@@ -2,11 +2,62 @@
 
 {% block content %}
 
-{% for entrada in entradas %}
+<div id="entradasApp"></div>
 
-  {{ entrada.titulo }}
-  {{ entrada.descripcion }}
+<a href="{{ path('admin.entradas.create')}}" class="btn btn-success">Nueva Entrada</a>
 
-{% endfor %}
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+  const entradasApp = new Vue({
+    el: '#entradasApp',
+    data: {
+      entradas: {{ entradas|json_encode()|raw }},
+      editUrlTem: "{{ path('admin.entradas.edit', {'id': 'id'}) }}",
+      delUrlTem: "{{ path('admin.entradas.destroy', {'id': 'id'}) }}"
+    },
+    template: `
+    {% verbatim %}
+    <div class="entradas">
+      <h2>Entradas</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Titulo</th>
+            <th>Descripcion</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tr v-for="(entrada, index) in entradas">
+          <td>{{ entrada.titulo }}</td>
+          <td>{{ entrada.descripcion }}</td>
+          <td>
+            <a :href="editUrl(entrada.id)" class="btn btn-warning">Editar</a>
+            <a href="#" class="btn btn-danger" @click.prevent="eliminar(entrada.id, index)">Eliminar</a>
+          </td>
+        </tr>
+      </table>
+    </div>
+    {% endverbatim %}`,
+    methods: {
+      editUrl: function(id){
+        return this.editUrlTem.replace('id', id);
+      },
+      eliminar: function(id, index){
+        axios({
+          method: 'delete',
+          url: this.delUrlTem.replace('id', id),
+        }).then(response => {
+          this.entradas.splice(index, 1);
+          console.log(response.data);
+        }).catch(e => {
+          console.log(e);
+        });
+      }
+    }
+  });
+</script>
 
 {% endblock %}
