@@ -20,26 +20,26 @@ class RouteCollection extends \Symfony\Component\Routing\RouteCollection{
 
   public function addGet($ruta, $controlador, $nombre = ''){
 
-    $this->addRoute(['GET'], $ruta, $controlador, $nombre);
+    $this->addRoute(['GET', 'HEAD'], $ruta, $controlador, $nombre);
     return $this;
 
   }
 
-  public function addPost(){
+  public function addPost($ruta, $controlador, $nombre = ''){
 
     $this->addRoute(['POST'], $ruta, $controlador, $nombre);
     return $this;
 
   }
 
-  public function addDel(){
+  public function addDel($ruta, $controlador, $nombre = ''){
 
     $this->addRoute(['DELETE'], $ruta, $controlador, $nombre);
     return $this;
 
   }
 
-  public function addPut(){
+  public function addPut($ruta, $controlador, $nombre = ''){
 
     $this->addRoute(['PUT', 'PATCH'], $ruta, $controlador, $nombre);
     return $this;
