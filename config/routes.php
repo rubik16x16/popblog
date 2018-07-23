@@ -6,7 +6,7 @@ $routes = new RouteCollection();
 
 $routes->addGet('/', 'User\IndexController@index', 'user.entradas');
 
-$routes->addGet('/admin', 'Admin\IndexController@index', 'admin.index');
+$routes->addGet('/admin', 'Admin\AdminController@index', 'admin.index');
 
 // Entradas
 

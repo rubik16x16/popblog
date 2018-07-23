@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use App\Models\Entrada;
 
-class IndexController extends Controller{
+class AdminController extends Controller{
 
   public function index(){
 
